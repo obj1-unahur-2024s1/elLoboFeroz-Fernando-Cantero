@@ -1,32 +1,53 @@
 import loboFeroz.*
-import lugaresYCosas.*
+
 
 object caperusita{
-	var canasta = 6
-	method esCaperusita()= true
-	method peso() = 60 + manzana.peso()*canasta
-	method crusarBosque(){
-		canasta -= 1
+	var peso = self.peso()
+	method peso(){
+		peso = 60 + canasta.peso()
+		return peso
+	} 
+	method perderManzana(cant){
+		canasta.perder(cant)
+		return self.peso()
 	}
-	method gracias()= 'Gracias señor cazador, nos a salavado a mi y a mi abuela'
-	method queOjosTanGrandesTienes() = feroz.ojos()
-	method queDientesTanGrandesTienes() = feroz.dientes()
-	method queOrejasMasGrandesTienes() = feroz.orejas()
-	method dondeVas() = 'Voy a la casa de abuelita, señor lobo ,Ella se encuentra enferma y voy a llevarle estas manzanas para animarla '
-	method quedaLejos() = '¡Oh! Debo llegar hasta el final del camino, ahí vive abuelita, adios'
 }
 
 object abuelita{
-	method peso() = 50
+	const peso = 50
+	method peso() = peso
 }
 
 object cazador{
 	const arma1 = rifle
 	const arma2 = cuchillo
-	method peso() = 90 + arma1.peso() + arma2.peso()
-	method llegada()= 'Detente, lobo malvado'
+	const peso = 90 + arma1.peso() + arma2.peso()
+	method peso() = peso
 	method atacarAlLobo(){
 		feroz.crisis()
 	}
-	method yaEstanASalvo()= caperusita.gracias()
 }
+
+object manzana{
+	method peso() = 0.2
+}
+object canasta{
+	var manzanas = 6
+	var peso = self.peso()
+	method peso(){
+		peso =  manzana.peso() * manzanas
+		return peso
+	}
+	method perder(cant){
+		manzanas = 0.max(manzanas - cant)
+		return self.peso()
+	}
+}
+
+object rifle{
+	method peso()= 5
+}
+object cuchillo{
+	method peso()= 0.5
+}
+
